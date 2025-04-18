@@ -5,7 +5,7 @@ from datetime import datetime
 class Item(BaseModel):
     id : int 
     name : str
-    default_price : int
+    default_price : float
     is_organic : Optional[bool]
     description : Optional[str]
     image_url : Optional[str]
