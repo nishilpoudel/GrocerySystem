@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Welcome to Grocery App</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to the Grocery App</h1>
+    </header>
+    <nav>
+      <!-- Provide a link to the create page (or any other pages) -->
+      <a href="/create-item">Create New Item</a>
+    </nav>
+    <div class="cart-container">
+      <h3>Your Groceries</h3>
+      <table class="class-table">
+        <tr class="class-row">
+          <th>Item</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Organic</th>
+          <th>Expires</th>
+        </tr>
+
+        <tbody id="items-table-body">
+          <!--- Rows-->
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      <p>© 2025 Grocery App</p>
+    </footer>
+    <script src="static/scripts/landingScript.js"></script>
+  </body>
+</html>

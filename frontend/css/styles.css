@@ -1,0 +1,34 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.data-item {
+  margin-bottom: 10px;
+}
+
+.class-table {
+  width: 100%;
+  text-align: left;
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.class-row {
+  text-align: left;
+}
+
+.class-table th {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+.class-table td {
+  text-align: center;
+}

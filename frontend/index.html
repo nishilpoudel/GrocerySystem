@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+    <h1>Please Enter Grocery Item</h1>
+    <br />
+    <form action="/create" method="POST">
+      <label for="name"> Name: </label>
+      <input type="text" name="name" placeholder="apples" />
+      <label for="price"> $ Price: </label>
+      <input type="number" name="price" step="any" min="0" placeholder="$$$" />
+      <label for="quantity"> Quantity: </label>
+      <input type="number" name="quantity" min="0" />
+      <label> Organic: </label> <br />
+      <input type="radio" name="organic" value="Yes" /> Yes
+      <br />
+      <input type="radio" name="organic" value="No" /> No
+      <br />
+      <label> Expiration Date :</label>
+      <br />
+      <input type="date" name="exp_date" />
+
+      <button type="submit">Enter</button>
+      <button type="reset">Reset</button>
+    </form>
+  </body>
+</html>
