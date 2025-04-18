@@ -12,10 +12,12 @@ import os
 from dotenv import load_dotenv
 from fastapi.responses import RedirectResponse
 from .models import User, UserCreate, UserID, UserLogin
+from .oauth2 import create_access_token
 from .utils import hash, verify_password
 from passlib.context import CryptContext
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import Annotated
+
 
 load_dotenv()
 
@@ -133,7 +135,7 @@ def create_item_endpoint(
 @app.delete('/delete_item/{id}')
 def delete_item(id, db : Connection = Depends(get_db)):
     cur = db.cursor()
-    cur.execute("DELETE FROM items where id = %s", (id))
+    cur.execute("DELETE FROM items where id = %s", (id,))
     db.commit()
     cur.close()
     return {f"Success : Item of id {id} was deleted"}
@@ -164,7 +166,7 @@ def create_user(user : UserCreate, db : Connection = Depends(get_db)):
         (user.first_name, user.last_name, user.email, user.hashed_password))
         new_user = cur.fetchone()
         db.commit()
-        cur.close
+        cur.close()
         return new_user
     except psycopg2.Error as e :
         print("Error", str(e))
@@ -183,21 +185,26 @@ def get_user_id(id : int, db : Connection = Depends(get_db)):
 
 
 @app.post("/login")
-def login(user_credentials:UserLogin, db : Connection = Depends(get_db)):
+def login(user_credentials: OAuth2PasswordRequestForm = Depends(), db : Connection = Depends(get_db)):
     try:
         cur = db.cursor()
-        cur.execute("""SELECT * FROM users WHERE email = %s""", (user_credentials.email,))
+        cur.execute("""SELECT * FROM users WHERE email = %s""", (user_credentials.username,))
         user_data = cur.fetchone()
         if not user_data:
             raise HTTPException(status_code=404, detail= "Invalid Credentials")
         cur.close()    
         user = User(**user_data)    
-        if not verify_password(user_credentials.hashed_password, user.hashed_password):
+        if not verify_password(user_credentials.password, user.hashed_password):
             raise HTTPException(status_code=404, detail="Invalid Credentials")
-        return {"token" : "token created"}
+        
+        access_token = create_access_token(data= {"user_id" : user.id})
+        return {"access token" : access_token, "token_type" : "bearer"}
     
     except psycopg2.Error as e:
         return {"Error", str(e)}
+    
+
+
 
  
 
