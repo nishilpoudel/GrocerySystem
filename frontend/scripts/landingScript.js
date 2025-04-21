@@ -46,12 +46,12 @@ function displayItems(items) {
         </div>`;
     row.appendChild(price);
 
-    const quantity = document.createElement("td");
-    quantity.innerHTML = `
+    const description = document.createElement("td");
+    description.innerHTML = `
         <div class = "quantity-details">
-            <h4> ${item.quantity} </h4>
+            <h4> ${item.description} </h4>
         </div>`;
-    row.appendChild(quantity);
+    row.appendChild(description);
 
     const organic = document.createElement("td");
     organic.innerHTML = `
@@ -60,13 +60,13 @@ function displayItems(items) {
         </div>`;
     row.appendChild(organic);
 
-    const exp_date = document.createElement("td");
-    exp_date.innerHTML = `
+    const image_url = document.createElement("td");
+    image_url.innerHTML = `
     <div class = "exp-date-details"
-        <h4> ${item.exp_date} </h4>
+        <h4> ${item.image_url} </h4>
         </div>`;
 
-    row.appendChild(exp_date);
+    row.appendChild(image_url);
 
     tableBody.appendChild(row);
   });
