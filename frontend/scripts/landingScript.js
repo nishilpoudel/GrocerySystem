@@ -4,7 +4,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function loadItems() {
   try {
-    const response = await fetch("/items");
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    if (!token) {
+      console.error("No access token—user is not logged in");
+      return;
+    }
+
+    const response = await fetch("/items", {
+      method: "GET",
+      headers: {
+        AUTHORIZATION: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      console.error("Fetch error", response.status, await response.text());
+      return;
+    }
     const items = await response.json();
 
     const updatedItems = items.map((item) => {
@@ -48,7 +64,7 @@ function displayItems(items) {
 
     const description = document.createElement("td");
     description.innerHTML = `
-        <div class = "quantity-details">
+        <div class = "description-details">
             <h4> ${item.description} </h4>
         </div>`;
     row.appendChild(description);
@@ -62,7 +78,7 @@ function displayItems(items) {
 
     const image_url = document.createElement("td");
     image_url.innerHTML = `
-    <div class = "exp-date-details"
+    <div class = "image_url-details"
         <h4> ${item.image_url} </h4>
         </div>`;
 
