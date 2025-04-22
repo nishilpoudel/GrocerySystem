@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Grocery Item</title>
+  </head>
+  <body>
+    <h1>Enter the Item</h1>
+    <form id="item-form">
+      <label>
+        Name
+        <input id="name" name="name" type="text" required /> </label
+      ><br />
+      <label>
+        Price
+        <input id="price" name="price" type="number" step=".01" required />
+      </label>
+      <br />
+      <label>
+        Description
+        <input id="description" name="description" type="text" /> </label
+      ><br />
+      <label>
+        Organic:
+        <select name="is_organic">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select> </label
+      ><br />
+      <label>
+        Image URL : <input id="image_url" name="image_url" type="url" />
+      </label>
+      <br />
+      <button type="submit">Save Item</button>
+      <button type="reset">Reset</button>
+    </form>
+  </body>
+  <body>
+    <script src="static/scripts/createItem.js"></script>
+  </body>
+</html>

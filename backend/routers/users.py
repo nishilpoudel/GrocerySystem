@@ -5,6 +5,7 @@ import psycopg2
 from .. models import User, UserCreate, UserID
 from ..db import get_db
 from typing import List
+from ..utils import hash
 
 
 router = APIRouter()

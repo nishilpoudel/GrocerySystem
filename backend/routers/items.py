@@ -6,18 +6,24 @@ import psycopg2
 from ..db import get_db
 from ..crud import create_item
 from typing import List
-
-from ..models import Item
+from ..models import Item, ItemCreate, DisplayItem
+from ..oauth2 import get_current_user
+from ..models import TokenData
 
 
 router = APIRouter()
 
 
-@router.get("/items",response_model= List[Item])
-def get_items(db : Connection = Depends(get_db)):
+@router.get("/items",response_model= List[DisplayItem])
+def get_items(current_user = Depends(get_current_user), db : Connection = Depends(get_db)):
     try: 
+        user_id = current_user.id
         cur = db.cursor()
-        cur.execute("SELECT * FROM items")
+        cur.execute("""SELECT i.name, i.price, i.description, i.is_organic, i.image_url
+                    FROM user_items AS ui
+                    JOIN items AS i
+                    ON ui.item_id = i.id
+                    WHERE ui.user_id = %s""", (user_id,))
         items = cur.fetchall()
         cur.close()
         return items
@@ -47,21 +53,19 @@ def delete_item(id, db : Connection = Depends(get_db)):
 
 @router.post("/create", response_model= Item)
 def create_item_endpoint(
-    name : str = Form(...),
-    price : float = Form(...),
-    quantity : int = Form(...),
-    organic : str = Form(...),
-    exp_date : str = Form(...),
-    db : Connection = Depends(get_db)
+    payload : ItemCreate,
+    db : Connection = Depends(get_db),
+    current_user  = Depends(get_current_user)
 ):
-    #convert the organic field to a boolean value 
-    is_organic = True if organic.lower() == "yes" else False
-
     try:    
-        new_item = create_item(db, name, price,quantity,is_organic, exp_date)
+        new_item = create_item(db, payload.name, payload.price,payload.description,payload.is_organic, payload.image_url, current_user.id)
         if not new_item:
             raise HTTPException(status_code=400, detail= "Item creation failed")
+    
         return RedirectResponse("/", status_code= 303 )
     except Exception as e:
         print("Error : ", e)
         raise HTTPException(status_code=500, detail="Internal Server Error ")
+        
+        
+    

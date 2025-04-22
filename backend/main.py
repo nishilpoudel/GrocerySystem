@@ -1,7 +1,7 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from .routers import items, users
+from .routers import items, users, login
 from .routers import user_items
     
 
@@ -10,23 +10,24 @@ router = APIRouter()
 
 app.mount("/static",StaticFiles(directory="frontend", html=True), name="static")
 
-
-
 app.include_router(items.router)
 app.include_router(users.router)
 app.include_router(user_items.router)
+app.include_router(login.router)
 
 
 @app.get("/")
 def read_index():
-    return FileResponse("frontend/landing.html")
+    return FileResponse("frontend/login.html")
 
 
 @app.get('/create-item')
 def read_create_form():
-    return FileResponse("frontend/index.html")
+    return FileResponse("frontend/create-item.html")
 
-
+@app.get("/landing")
+def read_landing():
+    return FileResponse("frontend/landing.html")
 
 
 

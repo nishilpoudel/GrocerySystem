@@ -5,7 +5,23 @@ from datetime import datetime
 class Item(BaseModel):
     id : int 
     name : str
-    default_price : float
+    price : float
+    is_organic : Optional[bool]
+    description : Optional[str]
+    image_url : Optional[str]
+
+class DisplayItem(BaseModel):
+    name : str
+    price : float
+    description : str
+    is_organic : Optional[bool]
+    image_url : Optional[str]
+
+
+
+class ItemCreate(BaseModel):
+    name : str
+    price : float
     is_organic : Optional[bool]
     description : Optional[str]
     image_url : Optional[str]
@@ -52,7 +68,7 @@ class Token(BaseModel):
     token_type : str
 
 class TokenData(BaseModel):
-    id : Optional[str] = None
+    id : Optional[int] = None
 
 
 
