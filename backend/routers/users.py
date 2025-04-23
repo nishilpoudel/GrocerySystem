@@ -1,4 +1,5 @@
-from fastapi import Depends, APIRouter, HTTPException
+from fastapi import Depends, APIRouter, HTTPException, status
+from fastapi.responses import JSONResponse
 from psycopg2.extensions import connection as Connection
 import psycopg2
 
@@ -6,6 +7,7 @@ from .. models import User, UserCreate, UserID
 from ..db import get_db
 from typing import List
 from ..utils import hash
+from ..oauth2 import create_access_token, verify_access_token
 
 
 router = APIRouter()
@@ -26,18 +28,26 @@ def get_users(db : Connection = Depends(get_db)):
 
 
 @router.post("/create-user")
-def create_user(user : UserCreate, db : Connection = Depends(get_db)):
+def create_user(payLoad : UserCreate, db : Connection = Depends(get_db)):
     try: 
-        hashing_password = hash(user.hashed_password)
-        user.hashed_password = hashing_password
+        hashing_password = hash(payLoad.hashed_password)
+        payLoad.hashed_password = hashing_password
         cur = db.cursor()
         cur.execute("""INSERT INTO users(first_name, last_name, email, hashed_password)
         VALUES(%s,%s,%s,%s) RETURNING * """ , 
-        (user.first_name, user.last_name, user.email, user.hashed_password))
+        (payLoad.first_name, payLoad.last_name, payLoad.email, payLoad.hashed_password))
         new_user = cur.fetchone()
+        id = new_user['id']
         db.commit()
         cur.close()
-        return new_user
+        token = create_access_token(data= {"user_id":id})
+
+        return JSONResponse(
+            status_code=status.HTTP_201_CREATED,
+            content= {"access_token": token, "token_type": "bearer"},
+        )
+        
+        
     except psycopg2.Error as e :
         print("Error", str(e))
 

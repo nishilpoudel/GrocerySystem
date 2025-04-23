@@ -29,6 +29,10 @@ def read_create_form():
 def read_landing():
     return FileResponse("frontend/landing.html")
 
+@app.get("/create-user")
+def create_user_form():
+    return FileResponse("frontend/create-user.html")
+
 
 
 
