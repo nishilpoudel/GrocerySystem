@@ -23,7 +23,7 @@ function loadItems() {
     localStorage.setItem("ACCESS_TOKEN", access_token);
     localStorage.setItem("TOKEN_TYPE", token_type);
 
-    window.location.href = "/create-item";
+    window.location.href = "/landing";
   });
 }
 

@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   loadItems();
 });
+console.log("test");
 
 async function loadItems() {
   try {
@@ -9,6 +10,7 @@ async function loadItems() {
       console.error("No access token—user is not logged in");
       return;
     }
+    console.log("token", token);
 
     const response = await fetch("/items", {
       method: "GET",
@@ -16,7 +18,7 @@ async function loadItems() {
         AUTHORIZATION: `Bearer ${token}`,
       },
     });
-
+    console.log("response", response);
     if (!response.ok) {
       console.error("Fetch error", response.status, await response.text());
       return;
