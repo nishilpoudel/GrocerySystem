@@ -17,8 +17,6 @@ function loadItems() {
     payload.price = parseFloat(payload.price);
     payload.is_organic = payload.is_organic === "yes";
 
-    console.log("payLoad", payload);
-
     const res = await fetch("/create", {
       method: "POST",
       headers: {
@@ -27,8 +25,6 @@ function loadItems() {
       },
       body: JSON.stringify(payload),
     });
-
-    console.log("response", res);
 
     if (res.ok) {
       alert("Item Created");
