@@ -3,10 +3,25 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from .routers import items, users, login
 from .routers import user_items
+from .routers import refresh
+from fastapi.middleware.cors import CORSMiddleware
     
 
 app = FastAPI()
 router = APIRouter()
+
+origins = [
+"http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware, 
+    allow_origins = origins,
+    allow_credentials = True,
+    allow_methods = ["*"],
+    allow_headers = ["*"],
+)
+
 
 app.mount("/static",StaticFiles(directory="frontend", html=True), name="static")
 
@@ -14,6 +29,7 @@ app.include_router(items.router)
 app.include_router(users.router)
 app.include_router(user_items.router)
 app.include_router(login.router)
+app.include_router(refresh.router)
 
 
 @app.get("/")
