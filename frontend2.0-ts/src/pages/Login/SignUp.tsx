@@ -4,6 +4,8 @@
 
 import React, { useState } from "react";
 import { setAccessToken } from "../../utils/auth";
+import "../../styles/signup-page.css";
+import backgroundImage from "../../assets/background.jpg";
 
 function SignUp() {
   const [error, setError] = useState<string | null>(null);
@@ -46,30 +48,37 @@ function SignUp() {
     }
   };
 
+  // after this we would navigate to the main landing page
+
   return (
-    <>
-      <h1 className="header">Sign Up</h1>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <label> First Name: </label>
-        <input type="text" id="first_name" name="first_name" required />
-        <label> Last Name: </label>
-        <input type="text" id="last_name" name="last_name" required />
+    <div className="container">
+      <div className="form-image">
+        {/* <img src={backgroundImage} alt="Test Background" /> */}
+      </div>
+      <div className="form-content">
+        <h1 className="form-heading">Sign Up</h1>
+        <form className="signup-form" onSubmit={handleSubmit}>
+          <label> First Name: </label>
+          <input type="text" id="first_name" name="first_name" required />
+          <label> Last Name: </label>
+          <input type="text" id="last_name" name="last_name" required />
 
-        <label> Email: </label>
-        <input type="email" id="email" name="email" required />
+          <label> Email: </label>
+          <input type="email" id="email" name="email" required />
 
-        <label> Password: </label>
-        <input
-          type="password"
-          id="hashed_password"
-          name="hashed_password"
-          required
-        />
+          <label> Password: </label>
+          <input
+            type="password"
+            id="hashed_password"
+            name="hashed_password"
+            required
+          />
 
-        <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
-      </form>
-    </>
+          <button type="submit">Submit</button>
+          <button type="reset">Reset</button>
+        </form>
+      </div>
+    </div>
   );
 }
 
