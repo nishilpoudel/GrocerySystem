@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { setAccessToken } from "../../utils/auth";
 import "../../styles/login-page.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -30,12 +32,12 @@ function Login() {
       const data = await response.json();
       setAccessToken(data.access_token);
     }
+    navigate("/dashboard");
   };
 
   return (
     <form className="login-form" onSubmit={handleFormSubmit}>
       <header className="login-header"> Login</header>
-
       <div className="input-box">
         {/* <label htmlFor="email">Email</label> */}
         <input

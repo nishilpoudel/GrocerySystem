@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/Login/SignUp";
+import LandingPage from "./pages/Landing/LandingPage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/dashboard" element={<LandingPage />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>

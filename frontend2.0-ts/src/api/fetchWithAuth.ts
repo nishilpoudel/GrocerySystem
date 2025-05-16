@@ -32,7 +32,7 @@ export async function fetchWithAuth(
     });
 
     if (refreshRes.ok) {
-      const data = (await response.json()) as RefreshResponse;
+      const data = (await refreshRes.json()) as RefreshResponse;
       setAccessToken(data.access_token);
 
       // now we can retry the original request

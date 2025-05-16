@@ -8,14 +8,13 @@ class Item(BaseModel):
     price : float
     is_organic : Optional[bool]
     description : Optional[str]
-    image_url : Optional[str]
 
 class DisplayItem(BaseModel):
     name : str
     price : float
     description : str
     is_organic : Optional[bool]
-    image_url : Optional[str]
+
 
 
 
@@ -24,18 +23,23 @@ class ItemCreate(BaseModel):
     price : float
     is_organic : Optional[bool]
     description : Optional[str]
-    image_url : Optional[str]
 
 
 class UserItem(BaseModel):
-    first_name : str
-    last_name : str
-    price : int 
-    quantity : int
-    note : Optional[str]
-    exp_date : Optional[datetime]
-    is_organic : Optional[bool]
-    image_url : Optional[str]
+
+    name : str
+    price : float
+    description : str
+    is_organic : bool
+
+    # first_name : str
+    # last_name : str
+    # price : int 
+    # quantity : int
+    # note : Optional[str]
+    # exp_date : Optional[datetime]
+    # is_organic : Optional[bool]
+    # image_url : Optional[str]
 
 
 class User(BaseModel):

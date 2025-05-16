@@ -58,7 +58,7 @@ def create_item_endpoint(
     current_user  = Depends(get_current_user)
 ):
     try:    
-        new_item = create_item(db, payload.name, payload.price,payload.description,payload.is_organic, payload.image_url, current_user.id)
+        new_item = create_item(db, payload.name, payload.price,payload.description,payload.is_organic, current_user.id)
         if not new_item:
             raise HTTPException(status_code=400, detail= "Item creation failed")
     

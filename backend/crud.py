@@ -1,11 +1,11 @@
 from psycopg2.extensions import connection as Connection 
 from datetime import datetime
 
-def create_item(db : Connection, name : str, price : float, description : str, is_organic : bool , image_url : str, user_id : int): 
+def create_item(db : Connection, name : str, price : float, description : str, is_organic : bool ,  user_id : int): 
     cur = db.cursor()
     try :
-        cur.execute("""INSERT INTO items(name, price, description, is_organic, image_url) 
-                    VALUES(%s, %s, %s, %s, %s) RETURNING * """, (name,price, description, is_organic, image_url))
+        cur.execute("""INSERT INTO items(name, price, description, is_organic) 
+                    VALUES(%s, %s, %s, %s) RETURNING * """, (name,price, description, is_organic))
         
         new_item = cur.fetchone()
         item_id = new_item['id']

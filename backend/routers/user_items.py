@@ -6,24 +6,27 @@ from ..db import get_db
 from typing import List
 from fastapi.security import OAuth2PasswordRequestForm
 from ..models import UserItem,User
-from ..utils import verify_password
-from ..oauth2 import create_access_token
+from ..oauth2 import get_current_user
+
+
 
 
 router = APIRouter()
 
-# # SQL join is incomplete. (Need to look at db tables and figure out how to query a user item )
-# @router.get("/user-items", response_model=List[UserItem])
-# def get_user_items(db : Connection = Depends(get_db)):
-#     try : 
-#         cur = db.cursor()
-#         cur.execute("""SELECT users.first_name, last_name, user_items.price, user_items.quantity, user_items.note, user_items.exp_date
-#         FROM users """)
-#         items = cur.fetchall()
-#         cur.close()
-#         return items
-#     except psycopg2.Error as e:
-#         return {"Error" : str(e)}
+@router.get("/user-items", response_model=List[UserItem])
+def get_user_items(current_user = Depends(get_current_user), db : Connection = Depends(get_db)):
+    
+    try : 
+        user_id = current_user.id
+        cur = db.cursor()
+        cur.execute("""SELECT i.name, i.price, i.description, i.is_organic FROM items AS i
+                    JOIN user_items AS ui on ui.item_id = i.id 
+                    WHERE ui.user_id = %s """, (user_id,))
+        items = cur.fetchall()
+        cur.close()
+        return items
+    except psycopg2.Error as e:
+        return {"Error" : str(e)}
     
 
 
