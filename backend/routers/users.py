@@ -50,8 +50,6 @@ def create_user(response : Response, payLoad : UserCreate, db : Connection = Dep
             samesite="lax",
         )
 
-        
-
         return JSONResponse(
             status_code=status.HTTP_201_CREATED,
             content= {"access_token": access_token, "token_type": "bearer"},

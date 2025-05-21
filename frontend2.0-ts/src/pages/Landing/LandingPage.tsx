@@ -1,7 +1,14 @@
-import CreateItemComponent from "../../components/CreateItem";
+import CreateItemComponent from "../../components/Item/CreateItem";
 import { useEffect, useState } from "react";
 import { DisplayItem } from "../../types/Item";
 import { fetchWithAuth } from "../../api/fetchWithAuth";
+import DisplayItemCard from "../../components/Item/DisplayItemCard";
+import "../../styles/landing-page.css";
+
+// useEffect is not finished, need to have error handling
+// needs to update on create item change
+// need to add more state
+//
 
 export default function LandingPage() {
   const [items, setItems] = useState<DisplayItem[]>([]);
@@ -31,9 +38,20 @@ export default function LandingPage() {
 
   return (
     <div>
-      {items.length === 0 ? "No items loaded" : JSON.stringify(items, null, 2)}
-
-      <CreateItemComponent />
+      <div className="create-button">
+        <CreateItemComponent />
+      </div>
+      <div>
+        {items.map((item) => (
+          <DisplayItemCard
+            key={item.id}
+            name={item.name}
+            price={item.price}
+            description={item.description}
+            is_organic={item.is_organic}
+          />
+        ))}
+      </div>
     </div>
   );
 }

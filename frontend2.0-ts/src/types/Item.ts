@@ -6,6 +6,7 @@ export type CreateItem = {
 };
 
 export type DisplayItem = {
+  id: number;
   name: string;
   price: number;
   description: string;

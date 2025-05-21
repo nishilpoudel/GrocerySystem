@@ -19,7 +19,7 @@ def get_user_items(current_user = Depends(get_current_user), db : Connection = D
     try : 
         user_id = current_user.id
         cur = db.cursor()
-        cur.execute("""SELECT i.name, i.price, i.description, i.is_organic FROM items AS i
+        cur.execute("""SELECT i.id, i.name, i.price, i.description, i.is_organic FROM items AS i
                     JOIN user_items AS ui on ui.item_id = i.id 
                     WHERE ui.user_id = %s """, (user_id,))
         items = cur.fetchall()

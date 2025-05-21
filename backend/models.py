@@ -27,6 +27,7 @@ class ItemCreate(BaseModel):
 
 class UserItem(BaseModel):
 
+    id : int
     name : str
     price : float
     description : str

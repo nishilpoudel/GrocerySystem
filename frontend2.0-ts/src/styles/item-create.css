@@ -1,0 +1,128 @@
+.body {
+  display: flex;
+  margin: 16px;
+}
+
+.dialog {
+  border: 1px;
+  border-radius: 3%;
+  width: 50%;
+  height: 50%;
+}
+.dialog form h2 {
+  padding: 8px;
+  width: 50%; /* same as .form-button */
+  margin: 0 auto 1rem; /* auto left/right centers the block */
+  text-align: center; /* center text within the block */
+}
+.form-input {
+  padding: 4px;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 90%;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 5px;
+  height: 40px;
+  transition: 0.5s;
+  box-shadow: 0px 5px 10px 1px rgba(0, 0, 0, 0.05);
+  outline: none;
+}
+.form-input:focus {
+  width: 93%;
+}
+
+.form-organic {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
+/* hide the native checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* track */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+  margin-right: 8px;
+}
+.switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+/* knob */
+.switch .slider::before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+/* checked state */
+.switch input:checked + .slider {
+  background-color: black;
+}
+.switch input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+/* optional label styling */
+.organic-label {
+  font-size: 0.9rem;
+  color: #333;
+}
+.form-close {
+  position: absolute;
+  top: 0.001rem; /* adjust to taste */
+  right: 1rem; /* adjust to taste */
+  cursor: pointer;
+  color: black;
+  font-weight: bolder;
+  font-size: 1.25rem;
+  user-select: none;
+  transition: transform 0.1s ease-in-out;
+}
+
+.form-close:hover {
+  transform: scale(1.1);
+}
+
+.form-button {
+  display: block; /* so margin:auto centers it x*/
+  width: 50%; /* half the form’s width */
+  height: 60px;
+  margin: 3rem auto 0; /* push it down a bit, auto‑center horizontally */
+  background-color: #000;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  text-align: center;
+  transition: 0.3s;
+}
+
+/* (Optional) hover effect */
+.form-button:hover {
+  /* box-shadow: 0 6px 8px rgba(0, 0, 0, 0.25); */
+  transform: scale(1.05);
+}
